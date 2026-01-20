@@ -28,7 +28,7 @@ This dashboard presents insights from the **Model** and **Report** stages of the
 # -------------------------
 # Load data
 # -------------------------
-@st.cache_data
+@st.cache
 def load_data():
     df = pd.read_csv("appstore_games.csv")
     return df
@@ -82,6 +82,7 @@ scaled_features = StandardScaler().fit_transform(features)
 
 kmeans = KMeans(n_clusters=3, random_state=42)
 model_df["Cluster"] = kmeans.fit_predict(scaled_features)
+model_df["Cluster"] = model_df["Cluster"].astype(str)
 
 # ---- PCA ----
 pca = PCA(n_components=2)
